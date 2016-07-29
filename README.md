@@ -10,7 +10,7 @@ Behind the Raspberry Pi3， I have the WNDR4300, this can be used as a normal ro
     wifi on the air |<------>| Raspberry|<----->|WNDR4300|<----->|PCs,phones,etc
 Raspberry pi and the WNDR4300 has to be configured, this repo is to backup the setting 
 
-###Ps： the WNDR4300 is flashed with a openwrt firmware and installed the shadwosocks act as the proxy.
+##Ps： the WNDR4300 is flashed with a openwrt firmware and installed the shadwosocks act as the proxy.
 
 
 ##Others
