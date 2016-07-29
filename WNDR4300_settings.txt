@@ -1,0 +1,30 @@
+WNDR4300 settings
+
+1. first compiling the openwrt 
+----------------
+download the code 
+	git clone git://git.openwrt.org/openwrt.git trunk
+	or
+	git clone git://github.com/openwrt/openwrt.git
+cd openwrt
+	
+	./scripts/feeds update packages luci
+	./scripts/feeds install -a -p luci
+
+shadowsocks 
+	git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
+	# choose Network -> shadowsocks-libev
+	git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
+	# choose Network -> ChinaDNS
+	git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
+	# choose LuCI -> 3. Applications
+		# maybe need to compile po2lmo
+			pushd package/openwrt-dist-luci/tools/po2lmo
+			make && sudo make install
+			popd
+make menuconfig		
+	select WNDR4300  settings
+
+	
+flash by luci or by command line 
+   sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
