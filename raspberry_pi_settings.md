@@ -1,5 +1,5 @@
-1. raspberry pi wifi setting(/etc/network/interfaces)
---------------------
+### raspberry pi wifi setting(/etc/network/interfaces)
+```
 allow-hotplug wlan0
 iface wlan0 inet static
 address 192.168.1.222
@@ -7,11 +7,11 @@ netmask 255.255.255.0
 gateway 192.168.1.1
 wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet dhcp
---------------------
+```
 
 
 /etc/wpa_supplicant/wpa_supplicant.conf is like 
---------------------
+```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=GB
@@ -37,12 +37,12 @@ network={
 #       pairwise=CCMP
 #       auth_alg=OPEN
 #}
---------------------
+```
 
 
 
-2. raspberry pi3 eth0 setting
---------------------
+### raspberry pi3 eth0 setting
+```
 # Please note that this file is written to be used with dhcpcd
 # For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
 
@@ -58,11 +58,11 @@ iface eth0 inet static
 address 192.168.10.1
 netmask 255.255.255.0
 dns-nameservers (your private DNS server)    
---------------------
+```
 
 
-3 . the iptables
---------------------
+### the iptables
+```
 #echo 1 >> /proc/sys/net/ipv4/ip_forward 
 # To make it auto-set this value on boot uncomment this line in /etc/sysctl.conf
 
@@ -92,4 +92,4 @@ iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
 iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 # Allow outgoing connections from the LAN side.
 iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
---------------------
+```
