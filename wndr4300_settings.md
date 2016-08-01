@@ -1,17 +1,20 @@
-WNDR4300 settings
+##WNDR4300 settings
 
-1. first compiling the openwrt 
-----------------
-download the code 
-	git clone git://git.openwrt.org/openwrt.git trunk
+### first compiling the openwrt 
+*download the code 
+```
+	git clone git://git.openwrt.org/openwrt.git
 	or
 	git clone git://github.com/openwrt/openwrt.git
-cd openwrt
-	
+```
+* install and update luci feed
+```
+	cd openwrt 
 	./scripts/feeds update packages luci
 	./scripts/feeds install -a -p luci
-
-shadowsocks 
+```
+* isntall shadowsocks
+```
 	git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
 	# choose Network -> shadowsocks-libev
 	git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
@@ -22,30 +25,33 @@ shadowsocks
 			pushd package/openwrt-dist-luci/tools/po2lmo
 			make && sudo make install
 			popd
-make menuconfig		
+```
+* make menuconfig		
 	select WNDR4300  settings
 
 	
-flash by luci or by command line 
-   sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
+* flash by luci or by command line 
+	sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
    
    
-2. ChinaDNS setting 
+### ChinaDNS setting 
+```
 Enable  yes
 Enable Bidirectional Filter   yes
 local port 5353
 CHNRoute File /etc/chinadns_chnroute
 upstream Servers 223.5.5.5,8.8.4.4
- 
+```
 shadowsocks settings (this is easy, maybe add later)
   
-3. network-->DHCP and DNS 
+### network-->DHCP and DNS 
 	General settings-->DNS forwardings: 127.0.0.1#5353
 	Resolv and Hosts Files-->ignore resolve file yes
 						  -->ignore /etc/hosts
 
 						  
-4. network-->interfaces
+### network-->interfaces
+```
 	LAN:
 		Protocol: static
 		IP v4: 192.168.5.1
@@ -61,8 +67,9 @@ shadowsocks settings (this is easy, maybe add later)
 		gateway: 192.168.10.1
 		broadcast: 192.168.10.255
 		custom DNS: 192.168.10.1
+```		
 		
-		
-5. update  chinaroute file
-
+### update  chinaroute file
+```sh
 $wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute
+```
