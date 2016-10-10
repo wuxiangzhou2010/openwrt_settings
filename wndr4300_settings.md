@@ -1,7 +1,7 @@
 ##WNDR4300 settings
 
 ### first compiling the openwrt 
-*download the code 
+* download the code 
 ```
 	git clone git://git.openwrt.org/openwrt.git
 	or
@@ -31,8 +31,9 @@
 
 	
 * flash by luci or by command line 
-	sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
-   
+``` shell
+sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
+```   
    
 ### ChinaDNS setting 
 ```
