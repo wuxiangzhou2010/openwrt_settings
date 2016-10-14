@@ -1,30 +1,36 @@
 ##WNDR4300 settings
 
+
 ### first compiling the openwrt 
+* install dependencies
+```
+sudo apt-get update
+sudo apt-get -y --no-install-recommends install git-core build-essential libssl-dev libncurses5-dev unzip gawk  subversion mercurial
+```
 * download the code 
 ```
-	git clone git://git.openwrt.org/openwrt.git
-	or
-	git clone git://github.com/openwrt/openwrt.git
+git clone git://git.openwrt.org/openwrt.git
+# or
+git clone git://github.com/openwrt/openwrt.git
 ```
 * install and update luci feed
 ```
-	cd openwrt 
-	./scripts/feeds update packages luci
-	./scripts/feeds install -a -p luci
+cd openwrt 
+./scripts/feeds update packages luci
+./scripts/feeds install -a -p luci
 ```
 * isntall shadowsocks
 ```
-	git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
-	# choose Network -> shadowsocks-libev
-	git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
-	# choose Network -> ChinaDNS
-	git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
-	# choose LuCI -> 3. Applications
-		# maybe need to compile po2lmo
-			pushd package/openwrt-dist-luci/tools/po2lmo
-			make && sudo make install
-			popd
+git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
+# choose Network -> shadowsocks-libev
+git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
+# choose Network -> ChinaDNS
+git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
+# choose LuCI -> 3. Applications
+	# maybe need to compile po2lmo
+		pushd package/openwrt-dist-luci/tools/po2lmo
+		make && sudo make install
+		popd
 ```
 * make menuconfig		
 	select WNDR4300  settings
