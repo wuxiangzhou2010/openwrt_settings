@@ -35,7 +35,17 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 ```
 * make menuconfig		
 	select WNDR4300  settings
+	
+### optional for WNDR2000v4
+```
+# disable ipv6
+# switch openssl to polarssl 
+# delete ppp
 
+> Kernel modules > Netfilter Extensions > Enable IPv6 support in packages
+> Kernel modules > Network Support  kmod-ppp
+```
+	
 	
 * flash by luci or by command line 
 ``` shell
