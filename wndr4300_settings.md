@@ -27,10 +27,11 @@ git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
 # choose Network -> ChinaDNS
 git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
 # choose LuCI -> 3. Applications
-	# maybe need to compile po2lmo
-		pushd package/openwrt-dist-luci/tools/po2lmo
-		make && sudo make install
-		popd
+	choose luci chinadns and luci shadowsocks-libev
+# maybe need to compile po2lmo
+	pushd package/openwrt-dist-luci/tools/po2lmo
+	make && sudo make install
+	popd
 ```
 * make menuconfig		
 	select WNDR4300  settings
