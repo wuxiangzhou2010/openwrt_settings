@@ -11,7 +11,7 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 ```
 git clone git://git.openwrt.org/openwrt.git
 # or
-git clone git://github.com/openwrt/openwrt.git
+git clone https://github.com/openwrt/openwrt.git
 ```
 * install and update luci feed
 ```
