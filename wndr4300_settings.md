@@ -39,13 +39,30 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 ### optional for WNDR2000v4
 ```
 # disable ipv6
-# switch openssl to polarssl 
+# switch  shadowsocks-libev to polarssl 
+	libraries -> SS(libpolarssl)
 # delete ppp
-
-> Kernel modules > Netfilter Extensions > Enable IPv6 support in packages
-> Kernel modules > Network Support  kmod-ppp
+	Network-> remove ppp  
+		then -> Kernel modules -> Network Support ->remove kmod-ppp
 ```
-	
+## build script for local saved archive
+```shell
+tar xf openwrt_with_git.tar.xz
+cd openwrt
+# update folder to the latest
+git pull
+./scripts/feeds update packages luci
+./scripts/feeds install -a -p luci
+pushd package/shadowsocks-libev
+git pull
+popd
+pushd package/chinadns
+git pull
+popd
+pushd package/openwrt-dist-luci
+git pull
+popd
+```
 	
 * flash by luci or by command line 
 ``` shell
