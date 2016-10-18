@@ -40,7 +40,7 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 	Global build settings -> remove ipv6
 # switch  shadowsocks-libev to polarssl 
 	libraries -> SS(libpolarssl)
-# delete ppp
+# delete ppp(at this stage for wndr2000v4, ppp is no need to remove,space is enough, just choose as you like)
 	Network-> remove ppp  
 		then -> Kernel modules -> Network Support ->remove kmod-ppp
 ```
