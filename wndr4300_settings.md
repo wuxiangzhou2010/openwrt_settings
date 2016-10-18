@@ -9,8 +9,6 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 ```
 * download the code 
 ```
-git clone git://git.openwrt.org/openwrt.git
-# or
 git clone https://github.com/openwrt/openwrt.git
 ```
 * install and update luci feed
@@ -39,6 +37,7 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 ### optional for WNDR2000v4
 ```
 # disable ipv6
+	Global build settings -> remove ipv6
 # switch  shadowsocks-libev to polarssl 
 	libraries -> SS(libpolarssl)
 # delete ppp
