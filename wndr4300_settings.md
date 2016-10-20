@@ -11,6 +11,10 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 ```
 git clone https://github.com/openwrt/openwrt.git
 ```
+or 
+```
+git clone --depth=1 https://github.com/openwrt/openwrt.git
+```
 * install and update luci feed
 ```
 cd openwrt 
@@ -31,20 +35,22 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 	make && sudo make install
 	popd
 ```
-* make menuconfig		
+* make menuconfig	
+```	
 	select WNDR4300  settings
-	
-### optional for WNDR2000v4
+# select luci 
+```
+* option for WNDR2000v4, which has smaller RAM and ROM 
 ```
 # disable ipv6
 	Global build settings -> remove ipv6
 # switch  shadowsocks-libev to polarssl 
 	libraries -> SS(libpolarssl)
-# delete ppp(at this stage for wndr2000v4, ppp is no need to remove,space is enough, just choose as you like)
+# disable ppp
 	Network-> remove ppp  
-		then -> Kernel modules -> Network Support ->remove kmod-ppp
+	Kernel modules -> Network Support ->remove kmod-ppp
 ```
-## build script for local saved archive
+* build script for local saved archive
 ```shell
 tar xf openwrt_with_git.tar.xz
 cd openwrt
