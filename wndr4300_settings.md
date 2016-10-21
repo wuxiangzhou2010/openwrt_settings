@@ -44,8 +44,8 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 ```
 # disable ipv6
 	Global build settings -> remove ipv6
-# switch  shadowsocks-libev to polarssl 
-	libraries -> SS(libpolarssl)
+# switch mbedtls (polarssl name has changed to mbedtls, and is part of ARM) 
+	libraries -> SSL(libmbedtls)
 # disable ppp
 	Network-> remove ppp  
 	Kernel modules -> Network Support ->remove kmod-ppp
@@ -88,8 +88,7 @@ shadowsocks settings (this is easy, maybe add later)
 	General settings-->DNS forwardings: 127.0.0.1#5353
 	Resolv and Hosts Files-->ignore resolve file yes
 						  -->ignore /etc/hosts
-
-						  
+					  
 ### network-->interfaces
 ```
 	LAN:
@@ -107,8 +106,7 @@ shadowsocks settings (this is easy, maybe add later)
 		gateway: 192.168.10.1
 		broadcast: 192.168.10.255
 		custom DNS: 192.168.10.1
-```		
-		
+```			
 ### update  chinaroute file
 ```sh
 $wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute
