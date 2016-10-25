@@ -116,8 +116,13 @@ $wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk 
 if git protocol is blocked, you can use https to fetch the repo
 ```
 # hostapd
-/openwrt/package/network/services/hostapd/Makefile, around line 15 
+openwrt/package/network/services/hostapd/Makefile, around line 15 
 PKG_SOURCE_URL:=git://w1.fi/srv/git/hostap.git
-change to
-http://w1.fi/hostap.git
+change to http://w1.fi/hostap.git
+
+#odhcp
+package/network/services/odhcpd/Makefile
+PKG_SOURCE_URL:=git://github.com/openwrt/odhcpd.git
+change to https://github.com/openwrt/odhcpd.git
+
 ```
