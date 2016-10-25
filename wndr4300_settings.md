@@ -21,7 +21,7 @@ cd openwrt
 ./scripts/feeds update packages luci
 ./scripts/feeds install -a -p luci
 ```
-* isntall shadowsocks
+* install shadowsocks
 ```
 git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
 # choose Network -> shadowsocks-libev
@@ -107,7 +107,17 @@ shadowsocks settings (this is easy, maybe add later)
 		broadcast: 192.168.10.255
 		custom DNS: 192.168.10.1
 ```			
-### update  chinaroute file
+### update chinaroute file
 ```sh
 $wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute
+```
+
+###  note 
+if git protocol is blocked, you can use https to fetch the repo
+```
+# hostapd
+/openwrt/package/network/services/hostapd/Makefile, around line 15 
+PKG_SOURCE_URL:=git://w1.fi/srv/git/hostap.git
+change to
+http://w1.fi/hostap.git
 ```
