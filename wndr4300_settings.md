@@ -24,6 +24,11 @@ cd openwrt
 * install shadowsocks
 ```
 git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
+maintainer  wongsyrone， 软件包只包含 shadowsocks-libev 的可执行文件, 可与 luci-app-shadowsocks 搭配使用
+
+git clone https://github.com/shadowsocks/luci-app-shadowsocks  package/luci-app-shadowsocks
+maintainer  aa65535， 本软件包是 shadowsocks-libev 的 LuCI 控制界面, 方便用户控制和使用「透明代理」「SOCKS5 代理」「端口转发」功能.
+
 # choose Network -> shadowsocks-libev
 git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
 # choose Network -> ChinaDNS
