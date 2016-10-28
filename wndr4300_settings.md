@@ -11,7 +11,7 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 ```
 git clone https://github.com/openwrt/openwrt.git
 ```
-or 
+or if internet is slow 
 ```
 git clone --depth=1 https://github.com/openwrt/openwrt.git
 ```
@@ -33,8 +33,11 @@ maintainer  aa65535， 本软件包是 shadowsocks-libev 的 LuCI 控制界面, 
 git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
 # choose Network -> ChinaDNS
 git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
+or  
+git clone https://github.com/xihajuan2010/openwrt-dist-luci.git package/openwrt-dist-luci --depth 1
+
 # choose LuCI -> 3. Applications
-	choose luci chinadns and luci shadowsocks-libev
+	choose  luci-app-chinadns and luci-app-shadowsocks
 # maybe need to compile po2lmo
 	pushd package/openwrt-dist-luci/tools/po2lmo
 	make && sudo make install
@@ -42,8 +45,9 @@ git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-
 ```
 * make menuconfig	
 ```	
-	select WNDR4300  settings
-# select luci 
+# select WNDR4300  settings
+# select luci -> collection -> luci 
+		 Modules -> luci-base
 ```
 * option for WNDR2000v4, which has smaller RAM and ROM 
 ```
@@ -72,6 +76,10 @@ popd
 pushd package/openwrt-dist-luci
 git pull
 popd
+pushd package/luci-app-shadowsocks
+git pull
+popd
+
 ```
 	
 * flash by luci or by command line 
