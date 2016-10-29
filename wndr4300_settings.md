@@ -57,7 +57,7 @@ choose LuCI -> 3. Applications -> luci-app-chinadns
 # disable ipv6
 	Global build settings -> remove ipv6
 # switch to polarssl (mbedtls has some problem) 
-	libraries -> SSL(libmbedtls)
+	libraries -> SSL(polarssl)
 # disable ppp
 	Network-> remove ppp  
 	Kernel modules -> Network Support ->remove kmod-ppp
