@@ -5,7 +5,7 @@
 * install dependencies
 ```
 sudo apt-get update
-sudo apt-get -y --no-install-recommends install git-core build-essential libssl-dev libncurses5-dev unzip gawk  subversion mercurial
+sudo apt-get -y --no-install-recommends install git-core build-essential libssl-dev libncurses5-dev unzip gawk subversion mercurial
 ```
 * download the code 
 ```
@@ -23,22 +23,25 @@ cd openwrt
 ```
 * install shadowsocks
 ```
+#  shadowsocks-libev (maintainer  wongsyrone， 软件包只包含 shadowsocks-libev 的可执行文件, 可与 luci-app-shadowsocks 搭配使用)
 git clone https://github.com/shadowsocks/openwrt-shadowsocks.git package/shadowsocks-libev
-maintainer  wongsyrone， 软件包只包含 shadowsocks-libev 的可执行文件, 可与 luci-app-shadowsocks 搭配使用
+choose Network -> shadowsocks-libev
 
+# luci-app-shadowsocks (maintainer  aa65535， 本软件包是 shadowsocks-libev 的 LuCI 控制界面, 方便用户控制和使用「透明代理」「SOCKS5 代理」「端口转发」功能.)
 git clone https://github.com/shadowsocks/luci-app-shadowsocks  package/luci-app-shadowsocks
-maintainer  aa65535， 本软件包是 shadowsocks-libev 的 LuCI 控制界面, 方便用户控制和使用「透明代理」「SOCKS5 代理」「端口转发」功能.
+choose LuCI -> 3. Applications ->luci-app-shadowsocks
 
-# choose Network -> shadowsocks-libev
+# chinaDNS(可执行文件)
 git clone https://github.com/aa65535/openwrt-chinadns.git package/chinadns
-# choose Network -> ChinaDNS
-git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
-or  
-git clone https://github.com/xihajuan2010/openwrt-dist-luci.git package/openwrt-dist-luci --depth 1
+choose Network -> ChinaDNS
 
-# choose LuCI -> 3. Applications
-	choose  luci-app-chinadns and luci-app-shadowsocks
-# maybe need to compile po2lmo
+# openwrt-dist-luci(luci app for chinaDNS)
+git clone https://github.com/aa65535/openwrt-dist-luci.git package/openwrt-dist-luci
+choose LuCI -> 3. Applications -> luci-app-chinadns
+```
+
+* maybe need to compile po2lmo
+```
 	pushd package/openwrt-dist-luci/tools/po2lmo
 	make && sudo make install
 	popd
@@ -46,18 +49,21 @@ git clone https://github.com/xihajuan2010/openwrt-dist-luci.git package/openwrt-
 * make menuconfig	
 ```	
 # select WNDR4300  settings
-# select luci -> collection -> luci 
-		 Modules -> luci-base
+# select luci -> 1. collection -> luci 
+		 2. Modules -> luci-base
 ```
 * option for WNDR2000v4, which has smaller RAM and ROM 
 ```
 # disable ipv6
 	Global build settings -> remove ipv6
-# switch mbedtls (polarssl name has changed to mbedtls, and is part of ARM) 
+# switch to polarssl (mbedtls has some problem) 
 	libraries -> SSL(libmbedtls)
 # disable ppp
 	Network-> remove ppp  
 	Kernel modules -> Network Support ->remove kmod-ppp
+...
+...
+use the configfile in  openwrt_settings\compile_config
 ```
 * build script for local saved archive
 ```shell
@@ -126,7 +132,7 @@ $wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk 
 ```
 
 ###  note 
-if git protocol is blocked, you can use https to fetch the repo
+* if git protocol is blocked, you can use https to fetch the repo
 ```
 # hostapd
 openwrt/package/network/services/hostapd/Makefile, around line 15 
@@ -138,4 +144,13 @@ package/network/services/odhcpd/Makefile
 PKG_SOURCE_URL:=git://github.com/openwrt/odhcpd.git
 change to https://github.com/openwrt/odhcpd.git
 
+```
+* if mbedtls has compiling error open these macro (configure: ... error: xxx required)
+```
+vi staging_dir/target-mips_34kc_musl-1.1.15/usr/include/mbedtls/config.h
+
+MBEDTLS_CIPHER_MODE_CFB 
+MBEDTLS_ARC4_C
+MBEDTLS_BLOWFISH_C
+MBEDTLS_CAMELLIA_C
 ```
