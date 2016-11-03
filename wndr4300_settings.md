@@ -10,6 +10,10 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 * download the code 
 ```
 git clone https://github.com/openwrt/openwrt.git
+or for 15.05 branch
+git clone https://github.com/openwrt/openwrt.git -b chaos_calmer
+
+
 ```
 or if internet is slow 
 ```
