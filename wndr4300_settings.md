@@ -158,3 +158,12 @@ MBEDTLS_ARC4_C
 MBEDTLS_BLOWFISH_C
 MBEDTLS_CAMELLIA_C
 ```
+
+### install the lateset ss on server
+```
+# from https://github.com/shadowsocks/shadowsocks/pull/575
+pip install git+https://github.com/shadowsocks/shadowsocks.git@<tag>
+pip install git+https://github.com/shadowsocks/shadowsocks.git@master
+pip install git+https://github.com/shadowsocks/shadowsocks.git@2.9.0
+
+```
