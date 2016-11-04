@@ -1,4 +1,4 @@
-##WNDR4300 settings
+## WNDR4300 settings
 
 
 ### first compiling the openwrt 
@@ -10,10 +10,9 @@ sudo apt-get -y --no-install-recommends install git-core build-essential libssl-
 * download the code 
 ```
 git clone https://github.com/openwrt/openwrt.git
-or for 15.05 branch
+
+# or for 15.05 branch
 git clone https://github.com/openwrt/openwrt.git -b chaos_calmer
-
-
 ```
 or if internet is slow 
 ```
@@ -55,11 +54,13 @@ choose LuCI -> 3. Applications -> luci-app-chinadns
 # select WNDR4300  settings
 # select luci -> 1. collection -> luci 
 		 2. Modules -> luci-base
+# search and enable iptables-mod-tproxy
 ```
 * option for WNDR2000v4, which has smaller RAM and ROM 
 ```
 # disable ipv6
 	Global build settings -> remove ipv6
+# remove  PACKAGE_libip6tc
 # switch to polarssl (mbedtls has some problem) 
 	libraries -> SSL(polarssl)
 # disable ppp
@@ -71,9 +72,12 @@ use the configfile in  openwrt_settings\compile_config
 ```
 * build script for local saved archive
 ```shell
-tar xf openwrt_with_git.tar.xz
-cd openwrt
+#tar xf openwrt_with_git.tar.xz
+#cd openwrt
 # update folder to the latest
+
+sudo apt-get -y --no-install-recommends install git-core \
+build-essential libssl-dev libncurses5-dev unzip gawk subversion mercurial
 git pull
 ./scripts/feeds update packages luci
 ./scripts/feeds install -a -p luci
@@ -94,7 +98,13 @@ popd
 	
 * flash by luci or by command line 
 ``` shell
-sysupgrade -v /tmp/filename-of-downloaded-sysupgrade.bin
+# for routers like wndr2000v4 use
+sysupgrade -v /tmp/openwrt-ar71xx-generic-wnr2000v4-squashfs-sysupgrade.bin.bin 
+
+# for wndr4300 use TFTP　
+(openwrt-ar71xx-nand-wndr4300-ubi-factory)
+or upgrade using the luci
+(openwrt-ar71xx-nand-wndr4300-squashfs-sysupgrade.tar)
 ```   
    
 ### ChinaDNS setting 
@@ -103,15 +113,20 @@ Enable  yes
 Enable Bidirectional Filter   yes
 local port 5353
 CHNRoute File /etc/chinadns_chnroute
-upstream Servers 223.5.5.5,8.8.4.4
+upstream Servers 114.114.114.114,127.0.0.1#5300
 ```
-shadowsocks settings (this is easy, maybe add later)
-  
+### shadowsocks settings
+* general  	
+	Transparent Proxy 	server: hk
+	SOCKS5 Proxy 		Disable
+	Port Forward  		server: hk 	port: 5300	destination: 8.8.4.4:53
+* server Manage
+	add your server
+* Access control
+	ChinaRoute
 ### network-->DHCP and DNS 
 	General settings-->DNS forwardings: 127.0.0.1#5353
-	Resolv and Hosts Files-->ignore resolve file yes
-						  -->ignore /etc/hosts
-					  
+	Resolv and Hosts Files-->ignore resolve file (yes)
 ### network-->interfaces
 ```
 	LAN:
@@ -128,11 +143,11 @@ shadowsocks settings (this is easy, maybe add later)
 		mask: 255.255.255.0
 		gateway: 192.168.10.1
 		broadcast: 192.168.10.255
-		custom DNS: 192.168.10.1
+		custom DNS: 114.114.114.114
 ```			
 ### update chinaroute file
-```sh
-$wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute
+``` shell
+wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > /etc/chinadns_chnroute
 ```
 
 ###  note 
