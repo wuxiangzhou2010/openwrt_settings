@@ -70,6 +70,10 @@ choose LuCI -> 3. Applications -> luci-app-chinadns
 ...
 use the configfile in  openwrt_settings\compile_config
 ```
+* open .config and open ip setting to "CONFIG_PACKAGE_ip=y" or add ip in openwrt-shadowsocks/Makefile
+```
+DEPENDS:=$(3) +libpcre +libpthread +ip
+```
 * build script for local saved archive
 ```shell
 #tar xf openwrt_with_git.tar.xz
